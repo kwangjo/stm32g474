@@ -10,6 +10,9 @@
 
 #include "hw_def.h"
 
+
+#include "led.h"
+
 bool hwInit(void);
 
 #endif /* SRC_HW_HW_H_ */

@@ -18,5 +18,7 @@ bool hwInit(void)
 
 	ret &= bspInit();
 
+	ret &= ledInit();
+
 	return ret;
 }
