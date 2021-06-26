@@ -18,7 +18,19 @@ bool hwInit(void)
 
 	ret &= bspInit();
 
+	ret &= rtcInit();
+#ifdef _USE_HW_RESET
+	ret &= resetInit();
+#endif
 	ret &= ledInit();
+
+#ifdef _USE_HW_RESET
+	if (resetGetCount() == 2)
+	{
+		// Jump To SystemBootloader
+		resetToSystemBoot();
+	}
+#endif
 
 	return ret;
 }

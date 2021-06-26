@@ -12,6 +12,8 @@
 
 
 #include "led.h"
+#include "rtc.h"
+#include "reset.h"
 
 bool hwInit(void);
 
