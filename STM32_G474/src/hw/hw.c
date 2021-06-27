@@ -32,5 +32,8 @@ bool hwInit(void)
 	}
 #endif
 
+	ret &= usbInit();
+	ret &= usbBegin(USB_CDC_MODE);
+
 	return ret;
 }
