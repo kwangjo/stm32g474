@@ -31,6 +31,7 @@ void apMain(void)
 //			pre_time[0] = millis();
 //			ledToggle(_DEF_LED1);
 //		}
+		// #4 USB CDC
 		if (cdcIsConnect() == true)
 		{
 			ledOn(_DEF_LED1);
@@ -38,6 +39,18 @@ void apMain(void)
 		else
 		{
 			ledOff(_DEF_LED1);
+		}
+
+		// #4 USB CDC
+		if (cdcAvailable() > 0)
+		{
+			uint8_t rx_data;
+
+			rx_data = cdcRead();
+
+			cdcWrite("RX : ", 5);
+			cdcWrite(&rx_data, 1);
+			cdcWrite("\n", 1);
 		}
 	}
 }
