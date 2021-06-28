@@ -18,6 +18,7 @@ bool hwInit(void)
 
 	ret &= bspInit();
 
+	ret &= cliInit();
 	ret &= rtcInit();
 #ifdef _USE_HW_RESET
 	ret &= resetInit();
@@ -34,6 +35,8 @@ bool hwInit(void)
 
 	ret &= usbInit();
 	ret &= usbBegin(USB_CDC_MODE);
+	ret &= uartInit();
+	ret &= uartOpen(_DEF_UART1, 57600);
 
 	return ret;
 }
