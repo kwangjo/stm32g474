@@ -37,6 +37,6 @@ bool hwInit(void)
 	ret &= usbBegin(USB_CDC_MODE);
 	ret &= uartInit();
 	ret &= uartOpen(_DEF_UART1, 57600);
-
+	ret &= canInit();
 	return ret;
 }

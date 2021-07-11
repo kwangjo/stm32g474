@@ -17,6 +17,7 @@
 #include "cdc.h"
 #include "usb.h"
 #include "uart.h"
+#include "can.h"
 
 bool hwInit(void);
 

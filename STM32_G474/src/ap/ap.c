@@ -31,7 +31,12 @@ void apInit(void)
 {
 	cliOpen(_DEF_UART1, 57600);
 
+//	canOpen(_DEF_CAN1, CAN_LOOPBACK, CAN_CLASSIC, CAN_1M, CAN_500K);
+	canOpen(_DEF_CAN1, CAN_NORMAL, CAN_CLASSIC, CAN_1M, CAN_500K);
+
 	cliModeInit();
+	canModeInit();
+
 	mode_args.keepLoop = apLoopIdle;
 }
 
