@@ -191,7 +191,7 @@ bool canOpen(uint8_t ch, can_mode_t mode, can_frame_t frame, can_baud_t baud, ca
       can_tbl[ch].baud_data             = baud_data;
       can_tbl[ch].fifo_idx              = FDCAN_RX_FIFO0;
       can_tbl[ch].enable_int            = FDCAN_IT_LIST_RX_FIFO0 |
-    		  	  	  	  	  	  	  	  FDCAN_IT_BUS_OFF |
+    		  	  	  	  	  	 	 	  FDCAN_IT_BUS_OFF |
 										  FDCAN_IT_ERROR_WARNING |
 										  FDCAN_IT_ERROR_PASSIVE;
       ret = true;
@@ -473,7 +473,6 @@ bool canUpdate(void)
   for (int i=0; i<CAN_MAX_CH; i++)
   {
     p_can = &can_tbl[i];
-    canErrUpdate(i);
 
     switch(p_can->state)
     {
@@ -617,13 +616,25 @@ void canErrUpdate(uint8_t ch)
 
 
 
+
+
+void HAL_FDCAN_ErrorStatusCallback(FDCAN_HandleTypeDef *hfdcan, uint32_t ErrorStatusITs)
+{
+  uint8_t ch = _DEF_CAN1;
+
+  canErrUpdate(ch);
+}
+
 void HAL_FDCAN_ErrorCallback(FDCAN_HandleTypeDef *hfdcan)
 {
 	uint8_t ch = _DEF_CAN1;
 
 	err_int_cnt++;
 
-	canErrUpdate(ch);
+	if (hfdcan->ErrorCode > 0)
+	{
+		can_tbl[ch].err_code |= CAN_ERR_ETC;
+	}
 }
 
 void FDCAN1_IT0_IRQHandler(void)
